@@ -1,17 +1,26 @@
+import 'bootstrap/dist/css/bootstrap-theme.css';
+import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import './assets/app.css';
+import './assets/cards.css';
+import registerServiceWorker from './registerServiceWorker';
+import Routes from './shared/routes.js';
+import store from './shared/store.js';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+window._app_container = document.getElementById('root');
+
+//  wrap whole app in Provider so every component has access to the store
+render(
+    <Provider store={store}>
+        <BrowserRouter>
+            <div className="fluidContainer">
+                <Routes />
+            </div>
+        </BrowserRouter>
+    </Provider>,
+    window._app_container
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+registerServiceWorker();
